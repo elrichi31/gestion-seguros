@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { EntitiesModule } from './entities/entities.module';
 import { PoliciesModule } from './policies/policies.module';
 import { CustomersModule } from './customers/customers.module';
+import { QuotesModule } from './quotes/quotes.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { CustomersModule } from './customers/customers.module';
     AuthModule,
     EntitiesModule,
     PoliciesModule,
-    CustomersModule, 
+    CustomersModule,
+    QuotesModule, 
   ],
   controllers: [AppController],
   providers: [AppService],
