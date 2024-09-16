@@ -1,6 +1,3 @@
-Aquí tienes el contenido completo del archivo **README.md** con todas las instrucciones de despliegue, configuración de **CI/CD**, y las características del proyecto:
-
-```markdown
 # Gestión de Seguros - API
 
 Esta es una API para la gestión de seguros, que incluye autenticación de usuarios, creación y administración de pólizas, clientes, cotizaciones y entidades. La API utiliza **NestJS**, **MongoDB** (con MongoDB Atlas) y **JWT** para la autenticación.
