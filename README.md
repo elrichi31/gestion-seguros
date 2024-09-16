@@ -1,85 +1,202 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Aquí tienes el contenido completo del archivo **README.md** con todas las instrucciones de despliegue, configuración de **CI/CD**, y las características del proyecto:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+```markdown
+# Gestión de Seguros - API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Esta es una API para la gestión de seguros, que incluye autenticación de usuarios, creación y administración de pólizas, clientes, cotizaciones y entidades. La API utiliza **NestJS**, **MongoDB** (con MongoDB Atlas) y **JWT** para la autenticación.
 
-## Description
+## Características principales
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Autenticación JWT**: Registro y autenticación de usuarios con diferentes roles (admin, broker, cliente).
+- **Multi-tenant**: Separación lógica de datos entre diferentes entidades (brokers).
+- **CRUD completo**: Para usuarios, pólizas, clientes y cotizaciones.
+- **Documentación de API**: Swagger para documentación interactiva de la API.
 
-## Project setup
+## Requisitos previos
+
+Antes de comenzar, asegúrate de tener lo siguiente instalado:
+
+- [Node.js](https://nodejs.org/) v16 o superior
+- [NestJS CLI](https://docs.nestjs.com/cli/overview) v8 o superior
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (o una instancia de MongoDB local)
+- Cuenta en [Docker](https://www.docker.com/) para ejecutar imágenes en un contenedor
+
+## Variables de entorno
+
+Asegúrate de tener un archivo `.env` en la raíz del proyecto con las siguientes variables de entorno:
 
 ```bash
-$ npm install
+# Archivo .env
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/mi_base_de_datos
+JWT_SECRET=mi_clave_secreta_para_jwt
 ```
 
-## Compile and run the project
+## Instrucciones de despliegue
 
-```bash
-# development
-$ npm run start
+### Despliegue local
 
-# watch mode
-$ npm run start:dev
+1. Clona este repositorio:
 
-# production mode
-$ npm run start:prod
+   ```bash
+   git clone https://github.com/tu_usuario/gestion-seguros.git
+   cd gestion-seguros
+   ```
+
+2. Instala las dependencias del proyecto:
+
+   ```bash
+   npm install
+   ```
+
+3. Configura las variables de entorno en un archivo `.env` (como se indica arriba).
+
+4. Inicia la aplicación en desarrollo:
+
+   ```bash
+   npm run start:dev
+   ```
+
+5. La aplicación estará disponible en `http://localhost:3000`.
+
+6. Para acceder a la documentación de la API (Swagger), visita `http://localhost:3000/api`.
+
+### Despliegue en producción con Docker
+
+1. Asegúrate de tener **Docker** instalado y en funcionamiento en tu máquina.
+
+2. Crea una imagen de Docker:
+
+   ```bash
+   docker build -t gestion-seguros-api .
+   ```
+
+3. Ejecuta el contenedor:
+
+   ```bash
+   docker run -d -p 3000:3000 --env-file .env gestion-seguros-api
+   ```
+
+4. La API estará disponible en `http://localhost:3000`.
+
+### Despliegue en un servidor remoto (Heroku)
+
+1. Instala el [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
+
+2. Inicia sesión en Heroku:
+
+   ```bash
+   heroku login
+   ```
+
+3. Crea una nueva aplicación en Heroku:
+
+   ```bash
+   heroku create gestion-seguros-api
+   ```
+
+4. Establece las variables de entorno en Heroku:
+
+   ```bash
+   heroku config:set MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/mi_base_de_datos
+   heroku config:set JWT_SECRET=mi_clave_secreta_para_jwt
+   ```
+
+5. Despliega la aplicación en Heroku:
+
+   ```bash
+   git push heroku main
+   ```
+
+6. La API estará disponible en `https://gestion-seguros-api.herokuapp.com`.
+
+## Configuración CI/CD con GitHub Actions
+
+El proyecto incluye un pipeline de **CI/CD** utilizando **GitHub Actions** para ejecutar pruebas y desplegar la aplicación automáticamente.
+
+### Archivo `.github/workflows/ci-cd.yml`
+
+A continuación, se muestra un ejemplo de configuración de CI/CD utilizando GitHub Actions para construir, probar y desplegar el proyecto automáticamente.
+
+```yaml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          git remote add heroku https://git.heroku.com/gestion-seguros-api.git
+          git push heroku main
 ```
 
-## Run tests
+### Instrucciones para la configuración de CI/CD
 
-```bash
-# unit tests
-$ npm run test
+1. Crea un archivo en tu repositorio en la ruta `.github/workflows/ci-cd.yml`.
 
-# e2e tests
-$ npm run test:e2e
+2. Establece las variables secretas de Heroku en los **secrets** de tu repositorio de GitHub:
+   - **HEROKU_API_KEY**: La API key de Heroku que puedes obtener en la configuración de tu cuenta en Heroku.
 
-# test coverage
-$ npm run test:cov
+3. Cuando hagas un **push** a la rama `main`, GitHub Actions ejecutará las pruebas y desplegará automáticamente en Heroku.
+
+## Uso de la API
+
+### Documentación de la API
+
+La documentación de la API está disponible mediante Swagger. Puedes acceder a ella en:
+
+```
+http://localhost:3000/api
 ```
 
-## Resources
+### Ejemplo de Endpoints
 
-Check out a few resources that may come in handy when working with NestJS:
+- **POST /auth/register**: Registra un nuevo usuario.
+- **POST /auth/login**: Inicia sesión con un usuario registrado.
+- **GET /users**: Obtiene una lista de todos los usuarios (solo para administradores).
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Licencia
 
-## Support
+Este proyecto está bajo la licencia MIT. Para más información, consulta el archivo [LICENSE](LICENSE).
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Explicación del README:
 
-## Stay in touch
+1. **Características principales**: Describe las características clave de la aplicación.
+2. **Requisitos previos**: Lista las herramientas necesarias para ejecutar el proyecto.
+3. **Variables de entorno**: Especifica las variables que deben configurarse en el archivo `.env`.
+4. **Instrucciones de despliegue**: Explica cómo desplegar la aplicación de forma local, con Docker y en Heroku.
+5. **Configuración de CI/CD con GitHub Actions**: Proporciona un ejemplo de archivo de workflow de GitHub Actions para CI/CD, y cómo configurarlo.
+6. **Documentación de la API**: Incluye instrucciones para acceder a la documentación de la API generada con Swagger.
+7. **Licencia**: Proporciona información sobre la licencia del proyecto. 
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Este **README.md** te proporciona toda la información necesaria para ejecutar, desplegar y mantener el proyecto con CI/CD.
