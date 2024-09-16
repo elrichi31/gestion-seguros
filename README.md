@@ -35,7 +35,7 @@ JWT_SECRET=mi_clave_secreta_para_jwt
 1. Clona este repositorio:
 
    ```bash
-   git clone https://github.com/tu_usuario/gestion-seguros.git
+   git clone https://github.com/elrichi31/gestion-seguros.git
    cd gestion-seguros
    ```
 
@@ -183,17 +183,4 @@ http://localhost:3000/api
 
 ## Licencia
 
-Este proyecto está bajo la licencia MIT. Para más información, consulta el archivo [LICENSE](LICENSE).
-```
-
-### Explicación del README:
-
-1. **Características principales**: Describe las características clave de la aplicación.
-2. **Requisitos previos**: Lista las herramientas necesarias para ejecutar el proyecto.
-3. **Variables de entorno**: Especifica las variables que deben configurarse en el archivo `.env`.
-4. **Instrucciones de despliegue**: Explica cómo desplegar la aplicación de forma local, con Docker y en Heroku.
-5. **Configuración de CI/CD con GitHub Actions**: Proporciona un ejemplo de archivo de workflow de GitHub Actions para CI/CD, y cómo configurarlo.
-6. **Documentación de la API**: Incluye instrucciones para acceder a la documentación de la API generada con Swagger.
-7. **Licencia**: Proporciona información sobre la licencia del proyecto. 
-
-Este **README.md** te proporciona toda la información necesaria para ejecutar, desplegar y mantener el proyecto con CI/CD.
+Este proyecto está bajo la licencia MIT.
