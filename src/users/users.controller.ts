@@ -1,32 +1,52 @@
-import { Controller, Post, Get, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Roles } from '../common/decorators/roles.decorator';
+import { GetEntityId } from '../common/decorators/entity.decorator';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')  // Etiqueta para Swagger
+@ApiBearerAuth()  // Autenticación con JWT
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // Obtener todos los usuarios
+  @ApiOperation({ summary: 'Obtener todos los usuarios' })
+  @ApiResponse({ status: 200, description: 'Lista de usuarios obtenida con éxito.' })
+  @ApiResponse({ status: 403, description: 'Prohibido. No tienes acceso.' })
   @Get()
-  async findAll() {
-    return this.usersService.findAll();
+  @Roles('admin')  // Solo administradores pueden ver todos los usuarios
+  async findAll(@GetEntityId() entityId: string) {
+    return this.usersService.findAll(entityId);
   }
 
-  // Obtener un usuario por su ID
+  @ApiOperation({ summary: 'Obtener un usuario por ID' })
+  @ApiResponse({ status: 200, description: 'Usuario obtenido con éxito.' })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  @ApiResponse({ status: 403, description: 'Prohibido. No tienes acceso.' })
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.usersService.findById(id);
+  @Roles('admin', 'broker')  // Solo administradores y brokers pueden ver un usuario específico
+  async findOne(@Param('id') id: string, @GetEntityId() entityId: string) {
+    return this.usersService.findById(id, entityId);
   }
 
-  // Actualizar un usuario por su ID
+  @ApiOperation({ summary: 'Actualizar un usuario por ID' })
+  @ApiResponse({ status: 200, description: 'Usuario actualizado con éxito.' })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  @ApiResponse({ status: 403, description: 'Prohibido. No tienes acceso.' })
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  @Roles('admin')  // Solo administradores pueden actualizar usuarios
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @GetEntityId() entityId: string) {
+    return this.usersService.update(id, updateUserDto, entityId);
   }
 
-  // Eliminar un usuario por su ID
+  @ApiOperation({ summary: 'Eliminar un usuario por ID' })
+  @ApiResponse({ status: 200, description: 'Usuario eliminado con éxito.' })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  @ApiResponse({ status: 403, description: 'Prohibido. No tienes acceso.' })
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  @Roles('admin')  // Solo administradores pueden eliminar usuarios
+  async remove(@Param('id') id: string, @GetEntityId() entityId: string) {
+    return this.usersService.remove(id, entityId);
   }
 }
