@@ -6,8 +6,8 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { GetEntityId } from '../common/decorators/entity.decorator';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('customers')  // Etiqueta para Swagger
-@ApiBearerAuth()  // JWT authentication
+@ApiTags('customers') 
+@ApiBearerAuth()
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}

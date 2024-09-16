@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 export class RolesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private jwtService: JwtService, // Inyectamos JwtService
+    private jwtService: JwtService,
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
